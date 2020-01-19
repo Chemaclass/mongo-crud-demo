@@ -11,13 +11,13 @@ import java.util.Optional;
 @Service
 public class ItemService {
 
-    private ItemRepository repository;
+    private final ItemRepository repository;
 
-    public ItemService(ItemRepository repository) {
+    public ItemService(final ItemRepository repository) {
         this.repository = repository;
     }
 
-    public void save(Item item) {
+    public void save(final Item item) {
         repository.save(item);
     }
 
@@ -25,22 +25,22 @@ public class ItemService {
         return repository.findAll();
     }
 
-    public Optional<Item> getById(String id) {
+    public Optional<Item> getById(final String id) {
         return repository.findById(id);
     }
 
-    public void deleteById(String id) {
+    public void deleteById(final String id) {
         repository.deleteById(id);
     }
 
-    public ResponseEntity<Item> update(String id, Item newItem) {
-        Optional<Item> optionalItem = repository.findById(id);
+    public ResponseEntity<Item> update(final String id, final Item newItem) {
+        final Optional<Item> optionalItem = repository.findById(id);
 
-        if(optionalItem.isEmpty()){
+        if (optionalItem.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        Item item = optionalItem.get();
+        final Item item = optionalItem.get();
         item.setName(newItem.getName());
         item.setPrice(newItem.getPrice());
         repository.save(item);
