@@ -3,6 +3,7 @@ package com.chemaclass.mongocruddemo.controller;
 import com.chemaclass.mongocruddemo.entity.Item;
 import com.chemaclass.mongocruddemo.service.ItemService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public void create(final @RequestBody Item item) {
+    public void create(final @Validated @RequestBody Item item) {
         service.save(item);
     }
 
@@ -40,7 +41,7 @@ public class ItemController {
     @PutMapping("{id}")
     public ResponseEntity<Item> update(
             final @PathVariable String id,
-            final @RequestBody Item newItem
+            final @Validated @RequestBody Item newItem
     ) {
         return service.update(id, newItem);
     }

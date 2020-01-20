@@ -1,6 +1,8 @@
 package com.chemaclass.mongocruddemo.controller;
 
 import com.chemaclass.mongocruddemo.repository.ItemRepository;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ class ItemControllerTest {
     @Autowired
     private ItemRepository repository;
 
+    @BeforeEach
+    void before(){
+        repository.deleteAll();
+    }
+
     @Test
     void create() throws Exception {
         mockMvc.perform(post("/items")
@@ -31,5 +38,14 @@ class ItemControllerTest {
                 .content("{\"name\": \"p5\",\"price\": \"666\"}"));
 
         assertEquals(1, repository.count());
+    }
+
+    @Test
+    void createWithoutContent() throws Exception {
+        mockMvc.perform(post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"));
+
+        assertEquals(0, repository.count());
     }
 }
