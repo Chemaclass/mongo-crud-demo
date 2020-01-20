@@ -18,6 +18,17 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	testCompile "org.springframework.boot:spring-boot-test"
+	testCompile "org.assertj:assertj-core"
+	testCompile "junit:junit"
+	testCompile "org.mockito:mockito-core"
+	testCompile "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
+	testCompile "org.hamcrest:hamcrest-library"
+
+	testCompile ("org.springframework.boot:spring-boot-starter-test") {
+		exclude group: 'com.vaadin.external.google', module: 'android-json'
+	}
 }
 
 test {
